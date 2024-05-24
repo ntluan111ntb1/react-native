@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  FlatList,
+} from "react-native";
 import { useState } from "react";
 
 const HomeView = () => {
@@ -9,7 +16,10 @@ const HomeView = () => {
     setGoalInput(goalTextInput);
   }
   function addGoalHandler() {
-    setListGoal((currenGoals) => [...currenGoals, goalInput]);
+    setListGoal((currenGoals) => [
+      ...currenGoals,
+      { text: goalInput, id: Math.random() },
+    ]);
   }
   return (
     <View style={styles.appContainer}>
@@ -26,12 +36,21 @@ const HomeView = () => {
           onPress={addGoalHandler}
         ></Button>
       </View>
-      <View style={styles.goalContainer}>
-        <Text style={styles.title}>List content:</Text>
-        {listGoal.map((goal) => (
-          <Text key={goal}>{goal}</Text>
-        ))}
-      </View>
+      <Text style={styles.title}>List your goal:</Text>
+      <FlatList
+        data={listGoal}
+        renderItem={(goal) => {
+          return (
+            <View style={styles.goalContainer}>
+              <Text style={styles.goal}>{goal.item.text}</Text>
+            </View>
+          );
+        }}
+        keyExtractor={(item, index) => {
+          console.log(item.id);
+          return item.id;
+        }}
+      />
     </View>
   );
 };
@@ -50,11 +69,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 8,
   },
+  goal: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+  },
 
   // container
   appContainer: {
     flex: 1, // space of view parent
-    backgroundColor: "cornflowerblue",
+    backgroundColor: "#lavender",
     paddingTop: 40,
     paddingHorizontal: 16,
   },
@@ -66,7 +90,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   goalContainer: {
-    flex: 1,
+    backgroundColor: "mediumslateblue",
+    padding: 12,
+    borderRadius: 12,
+    marginVertical: 4,
   },
 });
 
