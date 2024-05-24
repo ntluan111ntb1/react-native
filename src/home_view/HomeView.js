@@ -7,6 +7,7 @@ import {
   FlatList,
 } from "react-native";
 import { useState } from "react";
+import { GoalItem } from "./components/GoalItem";
 
 const HomeView = () => {
   const [goalInput, setGoalInput] = useState("");
@@ -41,9 +42,7 @@ const HomeView = () => {
         data={listGoal}
         renderItem={(goal) => {
           return (
-            <View style={styles.goalContainer}>
-              <Text style={styles.goal}>{goal.item.text}</Text>
-            </View>
+            
           );
         }}
         keyExtractor={(item, index) => {
