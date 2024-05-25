@@ -11,7 +11,6 @@ function GoalItem(props) {
           style={styles.btnContainer}
           onPress={props.onDeleteGoal.bind(this, props.id)}
           android_ripple={{ color: "black" }}
-          style={({ pressed }) => pressed && styles.deletePress}
         >
           <Image
             style={styles.btnContainer}
@@ -49,8 +48,5 @@ const styles = StyleSheet.create({
   btnContainer: {
     height: 40,
     width: 40,
-  },
-  deletePress: {
-    color: "black",
   },
 });
