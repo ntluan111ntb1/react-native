@@ -19,6 +19,13 @@ const HomeView = () => {
       { text: goalInput, id: Math.random() },
     ]);
   }
+
+  function deleteGoalHandler(id) {
+    setListGoal((currenListGoal) => {
+      return currenListGoal.filter((goal) => goal.id !== id);
+    });
+  }
+
   return (
     <View style={styles.appContainer}>
       <Text style={styles.title}>Your Goals</Text>
@@ -27,7 +34,13 @@ const HomeView = () => {
       <FlatList
         data={listGoal}
         renderItem={(goal) => {
-          return <GoalItem text={goal.item.text} />;
+          return (
+            <GoalItem
+              text={goal.item.text}
+              onDeleteGoal={deleteGoalHandler}
+              id={goal.item.id}
+            />
+          );
         }}
         keyExtractor={(item) => {
           return item.id;
