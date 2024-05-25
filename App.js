@@ -1,8 +1,5 @@
-import HomeView from "./src/HomeView";
+import HomeView from "./src/home_view/HomeView";
 
-const App = () => {
-  // return <HomeView />;
+export default function App() {
   return <HomeView />;
-};
-
-export default App;
+}
