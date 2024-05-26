@@ -1,23 +1,18 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View, FlatList, Button } from "react-native";
 import { useState } from "react";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
 const HomeView = () => {
   const [listGoal, setListGoal] = useState([]);
+  const [isGoalInputVisible, setGoalInputVisible] = useState(false);
 
   function addGoalHandler(goalInput) {
     setListGoal((currenGoals) => [
       ...currenGoals,
       { text: goalInput, id: Math.random() },
     ]);
+    cancelGoalInputHandler();
   }
 
   function deleteGoalHandler(id) {
@@ -26,11 +21,22 @@ const HomeView = () => {
     });
   }
 
+  function visibleGoalInputHandler() {
+    setGoalInputVisible(true);
+  }
+
+  function cancelGoalInputHandler() {
+    setGoalInputVisible(false);
+  }
+
   return (
     <View style={styles.appContainer}>
-      <Text style={styles.title}>Your Goals</Text>
-      <GoalInput onAddGoal={addGoalHandler} />
-      <Text style={styles.title}>List your goal:</Text>
+      <Button title="Add goal" onPress={visibleGoalInputHandler} />
+      <GoalInput
+        onAddGoal={addGoalHandler}
+        visible={isGoalInputVisible}
+        onCancel={cancelGoalInputHandler}
+      />
       <FlatList
         data={listGoal}
         renderItem={(goal) => {
