@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TextInput, Alert } from "react-native";
 import { useState } from "react";
 import PrimaryButton from "../components/primatyButton";
 
-function StartGameScreen() {
+function StartGameScreen(props) {
   const [number, setNumber] = useState("");
 
   function confirmHandler() {
@@ -12,9 +12,9 @@ function StartGameScreen() {
       Alert.alert("Invalid Number", "Number has to a Number between 1 and 99", [
         { text: "Okay", style: "destructive", onPress: resetHandler },
       ]);
+    } else {
+      props.onSetEnteredNumber(number);
     }
-
-    console.log(number);
   }
 
   function resetHandler() {
