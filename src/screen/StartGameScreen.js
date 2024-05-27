@@ -24,10 +24,9 @@ export default StartGameScreen;
 const styles = StyleSheet.create({
   inputContainer: {
     backgroundColor: "brown",
-    elevation: 16,
+    elevation: 24,
     padding: 12,
     marginHorizontal: 16,
-
     //ios
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },

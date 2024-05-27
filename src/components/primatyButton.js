@@ -28,6 +28,8 @@ export default PrimaryButton;
 
 const styles = StyleSheet.create({
   btnOuterContainer: {
+    borderWidth: 2,
+    borderColor: "maroon",
     borderRadius: 12,
     marginTop: 12,
     backgroundColor: "burlywood",
