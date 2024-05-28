@@ -2,6 +2,7 @@ import { Text, View, StyleSheet, TextInput, Alert } from "react-native";
 import { useState } from "react";
 import PrimaryButton from "../components/primatyButton";
 import Colors from "../constants/colors";
+import Title from "../components/title";
 
 function StartGameScreen(props) {
   const [number, setNumber] = useState("");
@@ -23,19 +24,24 @@ function StartGameScreen(props) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <View style={styles.textFieldContainer}>
-        <TextInput
-          style={styles.textInput}
-          maxLength={2}
-          keyboardType="number-pad"
-          onChangeText={setNumber}
-          value={number}
-        />
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Title>Guess My Number</Title>
       </View>
-      <View style={styles.buttonContainer}>
-        <PrimaryButton onPress={resetHandler} text="Reset" />
-        <PrimaryButton onPress={confirmHandler} text="Confirm" />
+      <View style={styles.inputContainer}>
+        <View style={styles.textFieldContainer}>
+          <TextInput
+            style={styles.textInput}
+            maxLength={2}
+            keyboardType="number-pad"
+            onChangeText={setNumber}
+            value={number}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={resetHandler} text="Reset" />
+          <PrimaryButton onPress={confirmHandler} text="Confirm" />
+        </View>
       </View>
     </View>
   );
@@ -44,11 +50,19 @@ function StartGameScreen(props) {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+  },
+  titleContainer: {
+    alignItems: "center",
+    alignItems: "center",
+    borderWidth: 4,
+    borderColor: Colors.floralwhite,
+  },
   inputContainer: {
     backgroundColor: Colors.red,
     elevation: 24,
     padding: 12,
-    marginHorizontal: 16,
     //ios
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },

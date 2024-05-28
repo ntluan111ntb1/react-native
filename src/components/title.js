@@ -9,7 +9,7 @@ export default Title;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: "500",
     color: Colors.floralwhite,
   },
