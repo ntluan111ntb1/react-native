@@ -3,6 +3,8 @@ import { useState } from "react";
 import PrimaryButton from "../components/primatyButton";
 import Colors from "../constants/colors";
 import Title from "../components/title";
+import Card from "../components/card";
+import InstructionText from "../components/instructionText";
 
 function StartGameScreen(props) {
   const [number, setNumber] = useState("");
@@ -28,8 +30,9 @@ function StartGameScreen(props) {
       <View style={styles.titleContainer}>
         <Title>Guess My Number</Title>
       </View>
-      <View style={styles.inputContainer}>
+      <Card>
         <View style={styles.textFieldContainer}>
+          <InstructionText>Enter your number</InstructionText>
           <TextInput
             style={styles.textInput}
             maxLength={2}
@@ -38,11 +41,19 @@ function StartGameScreen(props) {
             value={number}
           />
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetHandler} text="Reset" />
-          <PrimaryButton onPress={confirmHandler} text="Confirm" />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={resetHandler}>
+              <Text>Reset</Text>
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={confirmHandler}>
+              <Text>Confirm</Text>
+            </PrimaryButton>
+          </View>
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
@@ -51,36 +62,29 @@ export default StartGameScreen;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    alignItems: "center",
+    marginHorizontal: 16,
+    marginTop: 100,
   },
   titleContainer: {
-    alignItems: "center",
-    alignItems: "center",
     borderWidth: 4,
     borderColor: Colors.floralwhite,
-  },
-  inputContainer: {
-    backgroundColor: Colors.red,
-    elevation: 24,
     padding: 12,
-    //ios
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 12,
-    shadowOpacity: 0.75,
   },
   textFieldContainer: {
     alignItems: "center",
   },
-  buttonContainer: {
+  buttonsContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
+  },
+  buttonContainer: {
+    flex: 1,
   },
   textInput: {
     borderBottomWidth: 2,
     borderColor: Colors.yellow,
     color: Colors.yellow,
-    padding: 12,
+    padding: 8,
     fontSize: 32,
   },
 });
