@@ -1,4 +1,4 @@
-import { Alert, Text, View, StyleSheet } from "react-native";
+import { Alert, Text, View, StyleSheet, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import PrimaryButton from "../components/primatyButton";
@@ -6,6 +6,7 @@ import Title from "../components/title";
 import Colors from "../constants/colors";
 import Card from "../components/card";
 import InstructionText from "../components/instructionText";
+import GuessLogItem from "../components/GuessLogItem";
 
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -23,11 +24,11 @@ let maxBoundary = 100;
 function GameScreen(props) {
   const initialGuess = generateRandomBetween(1, 100, props.userNumber);
   const [number, setNumber] = useState(initialGuess);
-  const [guessNumbers, setGuessNumber] = useState([]);
+  const [guessNumbers, setGuessNumber] = useState([initialGuess]);
 
   useEffect(() => {
     if (number == props.userNumber) {
-      props.onGameOver();
+      props.onGameOver(guessNumbers.length);
     }
   }, [number, props.userNumber, props.onGameOver]);
 
@@ -83,10 +84,17 @@ function GameScreen(props) {
           </View>
         </View>
       </Card>
-      <View>
-        {guessNumbers.map((guessNumber) => {
-          <Title>{guessNumber}</Title>;
-        })}
+      <View style={styles.guessLogContainer}>
+        <FlatList
+          data={guessNumbers}
+          renderItem={(itemData) => (
+            <GuessLogItem
+              guessNumber={itemData.item}
+              roundNumber={guessNumbers.length - itemData.index}
+            ></GuessLogItem>
+          )}
+          keyExtractor={(item) => item}
+        />
       </View>
     </View>
   );
@@ -96,7 +104,7 @@ export default GameScreen;
 
 const styles = StyleSheet.create({
   gameScreenContainer: {
-    marginTop: 100,
+    flex: 1,
     marginHorizontal: 16,
   },
   titleComponent: {
@@ -124,6 +132,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   buttonContainer: {
+    flex: 1,
+  },
+  guessLogContainer: {
+    marginTop: 16,
     flex: 1,
   },
 });

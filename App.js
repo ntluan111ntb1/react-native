@@ -9,8 +9,8 @@ import Colors from "./src/constants/colors";
 import AppLoading from "expo-app-loading";
 export default function App() {
   const [enteredNumber, setEnteredNumber] = useState("");
-  const [guessNumber, setGuessNumber] = useState("");
   const [isGameOver, setIsGameOver] = useState(false);
+  const [guessRound, setGuessRound] = useState(0);
 
   const [fontsLoaded] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -25,13 +25,13 @@ export default function App() {
     setEnteredNumber(number);
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(guessRoundNumber) {
     setIsGameOver(true);
+    setGuessRound(guessRoundNumber);
   }
 
   function newGameHandle() {
     setEnteredNumber(null);
-    setGuessNumber(null);
     setIsGameOver(false);
   }
 
@@ -39,11 +39,7 @@ export default function App() {
 
   if (enteredNumber) {
     screen = (
-      <GameScreen
-        onGameOver={gameOverHandler}
-        userNumber={enteredNumber}
-        guessNumber={guessNumber}
-      />
+      <GameScreen onGameOver={gameOverHandler} userNumber={enteredNumber} />
     );
   }
 
@@ -52,6 +48,7 @@ export default function App() {
       <GameOverScreen
         userNumber={enteredNumber}
         onStartNewGame={newGameHandle}
+        guessRound={guessRound}
       />
     );
   }
@@ -67,7 +64,7 @@ export default function App() {
         style={styles.container}
         imageStyle={styles.backgroundImage}
       >
-        <SafeAreaView>{screen}</SafeAreaView>
+        <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
